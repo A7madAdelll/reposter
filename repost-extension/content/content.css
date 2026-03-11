@@ -1,0 +1,337 @@
+/* ─── Repost Extension – Injected Styles ─────────────────────────────────── */
+/* Design: Dark, editorial, precise. Accent: electric indigo #6C63FF */
+
+:root {
+  --rp-accent: #6C63FF;
+  --rp-accent-light: #8B85FF;
+  --rp-accent-glow: rgba(108, 99, 255, 0.35);
+  --rp-bg: #0E0E11;
+  --rp-surface: #1A1A22;
+  --rp-border: rgba(255,255,255,0.08);
+  --rp-text: #F0F0F5;
+  --rp-muted: rgba(240,240,245,0.5);
+  --rp-radius: 12px;
+  --rp-font: 'DM Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* ── Repost Button ─────────────────────────────────────────────────────────── */
+.rp-repost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--rp-surface);
+  border: 1px solid var(--rp-border);
+  border-radius: 100px;
+  color: var(--rp-text);
+  font-family: var(--rp-font);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.rp-repost-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--rp-accent), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.rp-repost-btn:hover {
+  border-color: var(--rp-accent);
+  box-shadow: 0 0 20px var(--rp-accent-glow);
+  transform: translateY(-1px);
+}
+
+.rp-repost-btn:hover::before { opacity: 0.1; }
+
+.rp-repost-btn:active { transform: scale(0.96); }
+
+.rp-repost-btn.rp-reposted {
+  background: var(--rp-accent);
+  border-color: var(--rp-accent);
+  color: #fff;
+  box-shadow: 0 4px 20px var(--rp-accent-glow);
+}
+
+.rp-repost-btn.rp-reposted:hover {
+  background: var(--rp-accent-light);
+  transform: translateY(-1px);
+}
+
+.rp-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.rp-repost-btn:hover .rp-icon {
+  transform: rotate(180deg);
+}
+
+/* ── Avatars ───────────────────────────────────────────────────────────────── */
+.rp-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--rp-accent);
+  border: 2px solid var(--rp-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  font-family: var(--rp-font);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.rp-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.rp-avatar-sm {
+  width: 22px;
+  height: 22px;
+  font-size: 9px;
+}
+
+.rp-avatar-xs {
+  width: 18px;
+  height: 18px;
+  font-size: 8px;
+}
+
+/* ── Avatar Stack on feed cards ───────────────────────────────────────────── */
+.rp-avatar-stack {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  background: rgba(14,14,17,0.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--rp-border);
+  border-radius: 100px;
+  padding: 4px 10px 4px 6px;
+  gap: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.rp-avatar-label {
+  font-family: var(--rp-font);
+  font-size: 11px;
+  color: var(--rp-text);
+  white-space: nowrap;
+  margin-left: 8px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ── Reposters bar under video title ─────────────────────────────────────── */
+.rp-reposters-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--rp-surface);
+  border: 1px solid var(--rp-border);
+  border-radius: 10px;
+  margin: 8px 0 12px;
+  animation: rp-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rp-reposters-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.rp-reposters-text {
+  font-family: var(--rp-font);
+  font-size: 13px;
+  color: var(--rp-muted);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ── Feed Section (YouTube home) ─────────────────────────────────────────── */
+.rp-feed-section {
+  width: 100%;
+  padding: 20px 0 28px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--rp-border);
+  animation: rp-fade-in 0.4s ease;
+}
+
+.rp-feed-section-generic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--rp-bg);
+  padding: 16px 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  max-height: 280px;
+  overflow-x: auto;
+}
+
+.rp-feed-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--rp-font);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--rp-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+.rp-feed-header svg {
+  width: 18px;
+  height: 18px;
+  color: var(--rp-accent);
+  stroke: var(--rp-accent);
+}
+
+.rp-feed-grid {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rp-feed-grid::-webkit-scrollbar { height: 4px; }
+.rp-feed-grid::-webkit-scrollbar-track { background: transparent; }
+.rp-feed-grid::-webkit-scrollbar-thumb { background: var(--rp-border); border-radius: 4px; }
+
+/* ── Feed Card ────────────────────────────────────────────────────────────── */
+.rp-feed-card {
+  flex-shrink: 0;
+  width: 220px;
+  scroll-snap-align: start;
+  background: var(--rp-surface);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.rp-feed-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--rp-accent);
+  box-shadow: 0 8px 30px var(--rp-accent-glow);
+}
+
+.rp-feed-card-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #1e1e2a;
+  overflow: hidden;
+}
+
+.rp-feed-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.rp-feed-card:hover .rp-feed-card-thumb img {
+  transform: scale(1.04);
+}
+
+.rp-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e1e2a, #2a2a3e);
+}
+
+.rp-feed-card-info {
+  padding: 10px 12px 12px;
+}
+
+.rp-feed-card-title {
+  font-family: var(--rp-font);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rp-text);
+  line-height: 1.4;
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  letter-spacing: -0.01em;
+}
+
+.rp-feed-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--rp-font);
+  font-size: 11px;
+  color: var(--rp-muted);
+  font-weight: 500;
+}
+
+.rp-dot { opacity: 0.4; }
+
+/* ── Toast ────────────────────────────────────────────────────────────────── */
+.rp-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--rp-surface);
+  border: 1px solid var(--rp-accent);
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-family: var(--rp-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rp-text);
+  z-index: 999999;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px var(--rp-accent-glow);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.rp-toast.rp-toast-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Animations ───────────────────────────────────────────────────────────── */
+@keyframes rp-fade-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rp-slide-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}

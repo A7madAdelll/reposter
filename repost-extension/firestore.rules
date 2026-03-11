@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      // Anyone signed in can read any user profile
+      allow read: if request.auth != null;
+
+      // Owner can do anything to their own doc
+      allow write: if request.auth != null && request.auth.uid == userId;
+
+      // OTHER signed-in users can update ONLY these specific fields on someone else's doc:
+      // - followRequests (to send a follow request)
+      // - following (when their request gets accepted)
+      // - followers (when someone accepts their request)
+      allow update: if request.auth != null && (
+        request.auth.uid == userId ||
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['followRequests', 'following', 'followers'])
+      );
+    }
+  }
+}
